@@ -6,7 +6,7 @@ import {
 } from '@copilotkit/runtime';
 import { GetOrgFromRequest } from '@gitroom/nestjs-libraries/user/org.from.request';
 import { Organization } from '@prisma/client';
-import { SubscriptionService } from '@gitroom/nestjs-libraries/database/prisma/subscriptions/subscription.service';
+import { SubscriptionService } from '@gitroom/nestjs-libraries/database/prisma/services/subscription.service';
 
 @Controller('/copilot')
 export class CopilotController {

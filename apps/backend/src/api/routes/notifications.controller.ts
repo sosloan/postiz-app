@@ -2,7 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { GetUserFromRequest } from '@gitroom/nestjs-libraries/user/user.from.request';
 import { Organization, User } from '@prisma/client';
 import { GetOrgFromRequest } from '@gitroom/nestjs-libraries/user/org.from.request';
-import { NotificationService } from '@gitroom/nestjs-libraries/database/prisma/notifications/notification.service';
+import { NotificationService } from '@gitroom/nestjs-libraries/database/prisma/services/notification.service';
 import {ApiTags} from "@nestjs/swagger";
 
 @ApiTags('Notifications')
