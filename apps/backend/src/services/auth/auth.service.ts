@@ -2,15 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { Provider, User } from '@prisma/client';
 import { CreateOrgUserDto } from '@gitroom/nestjs-libraries/dtos/auth/create.org.user.dto';
 import { LoginUserDto } from '@gitroom/nestjs-libraries/dtos/auth/login.user.dto';
-import { UsersService } from '@gitroom/nestjs-libraries/database/prisma/users/users.service';
-import { OrganizationService } from '@gitroom/nestjs-libraries/database/prisma/organizations/organization.service';
+import { UsersService } from '@gitroom/nestjs-libraries/database/prisma/services/users.service';
+import { OrganizationService } from '@gitroom/nestjs-libraries/database/prisma/services/organization.service';
 import { AuthService as AuthChecker } from '@gitroom/helpers/auth/auth.service';
 import { ProvidersFactory } from '@gitroom/backend/services/auth/providers/providers.factory';
 import dayjs from 'dayjs';
 import { NewsletterService } from '@gitroom/nestjs-libraries/services/newsletter.service';
-import { NotificationService } from '@gitroom/nestjs-libraries/database/prisma/notifications/notification.service';
+import { NotificationService } from '@gitroom/nestjs-libraries/database/prisma/services/notification.service';
 import { ForgotReturnPasswordDto } from '@gitroom/nestjs-libraries/dtos/auth/forgot-return.password.dto';
-import { EmailService } from '@gitroom/nestjs-libraries/services/email.service';
+import { EmailService } from '@gitroom/nestjs-libraries/database/prisma/services/email.service';
 
 @Injectable()
 export class AuthService {
@@ -20,6 +20,20 @@ export class AuthService {
     private _notificationService: NotificationService,
     private _emailService: EmailService
   ) {}
+
+  async createFirstUsers(usersData: CreateOrgUserDto[]) {
+    const createdUsers = [];
+    for (const userData of usersData) {
+      const createdUser = await this._organizationService.createOrgAndUser(
+        userData,
+        '',
+        ''
+      );
+      createdUsers.push(createdUser.users[0].user);
+    }
+    return createdUsers;
+  }
+
   async routeAuth(
     provider: Provider,
     body: CreateOrgUserDto | LoginUserDto,

@@ -9,11 +9,11 @@ import {
 } from '@nestjs/common';
 import { Organization } from '@prisma/client';
 import { GetOrgFromRequest } from '@gitroom/nestjs-libraries/user/org.from.request';
-import { StarsService } from '@gitroom/nestjs-libraries/database/prisma/stars/stars.service';
+import { StarsService } from '@gitroom/nestjs-libraries/database/prisma/services/stars.service';
 import dayjs from 'dayjs';
 import { StarsListDto } from '@gitroom/nestjs-libraries/dtos/analytics/stars.list.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { IntegrationService } from '@gitroom/nestjs-libraries/database/prisma/integrations/integration.service';
+import { IntegrationService } from '@gitroom/nestjs-libraries/database/prisma/services/integration.service';
 import { IntegrationManager } from '@gitroom/nestjs-libraries/integrations/integration.manager';
 
 @ApiTags('Analytics')
