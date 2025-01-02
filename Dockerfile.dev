@@ -1,8 +1,10 @@
-# This Dockerfile is used for producing 3 container images.
+# This Dockerfile is used for producing 5 container images.
 #
 # base - which is thrown away, that contains node and the basic infrastructure. 
 # devcontainer - which is used for development, and contains the source code and the node_modules.
 # dist - which is used for production, and contains the built source code and the node_modules.
+# modal - which is used for modal, and contains the built source code and the node_modules.
+# devlooper - which is used for devlooper, and contains the built source code and the node_modules.
 
 ARG NODE_VERSION="20.17"
 
@@ -76,3 +78,35 @@ VOLUME /uploads
 
 ## Labels at the bottom, because CI will eventually add dates, commit hashes, etc.
 LABEL org.opencontainers.image.title="Postiz App (Production)"
+
+# Modal image
+FROM base AS modal
+
+COPY --from=devcontainer /app/node_modules/ /app/node_modules/
+COPY --from=devcontainer /app/dist/ /app/dist/
+
+# Required for prisma
+COPY --from=devcontainer /app/libraries/ /app/libraries/
+
+COPY package.json nx.json /app/
+
+VOLUME /config
+VOLUME /uploads
+
+LABEL org.opencontainers.image.title="Postiz App (Modal)"
+
+# Devlooper image
+FROM base AS devlooper
+
+COPY --from=devcontainer /app/node_modules/ /app/node_modules/
+COPY --from=devcontainer /app/dist/ /app/dist/
+
+# Required for prisma
+COPY --from=devcontainer /app/libraries/ /app/libraries/
+
+COPY package.json nx.json /app/
+
+VOLUME /config
+VOLUME /uploads
+
+LABEL org.opencontainers.image.title="Postiz App (Devlooper)"
