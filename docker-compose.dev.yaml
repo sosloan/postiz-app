@@ -48,6 +48,42 @@ services:
     networks:
       - postiz-network
     restart: always
+  postiz-backend:
+    image: localhost/postiz
+    container_name: postiz-backend
+    restart: always
+    environment:
+      NODE_ENV: development
+    ports:
+      - 3000:3000
+    networks:
+      - postiz-network
+  postiz-frontend:
+    image: localhost/postiz
+    container_name: postiz-frontend
+    restart: always
+    environment:
+      NODE_ENV: development
+    ports:
+      - 4200:4200
+    networks:
+      - postiz-network
+  postiz-workers:
+    image: localhost/postiz
+    container_name: postiz-workers
+    restart: always
+    environment:
+      NODE_ENV: development
+    networks:
+      - postiz-network
+  postiz-cron:
+    image: localhost/postiz
+    container_name: postiz-cron
+    restart: always
+    environment:
+      NODE_ENV: development
+    networks:
+      - postiz-network
 
 volumes:
   redisinsight:

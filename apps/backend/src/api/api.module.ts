@@ -26,6 +26,7 @@ import { AgenciesController } from '@gitroom/backend/api/routes/agencies.control
 import { PublicController } from '@gitroom/backend/api/routes/public.controller';
 import { RootController } from '@gitroom/backend/api/routes/root.controller';
 import { TrackService } from '@gitroom/nestjs-libraries/track/track.service';
+import { TestController } from '@gitroom/backend/api/routes/test.controller';
 
 const authenticatedController = [
   UsersController,
@@ -40,6 +41,7 @@ const authenticatedController = [
   MessagesController,
   CopilotController,
   AgenciesController,
+  TestController,
 ];
 @Module({
   imports: [

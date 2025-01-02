@@ -46,10 +46,34 @@ This project follows a Fork/Feature Branch/Pull Request model. If you're not fam
    ```
 9. **Create a pull request**: Propose your changes to the main project.
 
+## Setting up the development environment
 
-# Need Help?
+To set up the development environment, follow these steps:
 
-Again, do check the [developer guide](https://docs.postiz.com/developer-guide). Much of what you probably need to know is in there.
+1. **Clone the repository**: Clone the repository to your local machine.
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/postiz.git
+   ```
+2. **Install dependencies**: Navigate to the project directory and install the dependencies.
+   ```bash
+   cd postiz
+   npm install
+   ```
+3. **Set up environment variables**: Copy the example environment file and modify it as needed.
+   ```bash
+   cp .env.example .env
+   ```
+4. **Start the development server**: Start the development server to run the application locally.
+   ```bash
+   npm run dev
+   ```
+
+## Running tests
+
+To run tests, use the following command:
+```bash
+npm test
+```
 
 If you encounter any issues, please visit our [support page](https://docs.postiz.com/support) or check the community forums. Your contributions help make Postiz better!
 
