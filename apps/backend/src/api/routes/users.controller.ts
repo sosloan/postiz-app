@@ -32,6 +32,7 @@ import { UserAgent } from '@gitroom/nestjs-libraries/user/user.agent';
 import { TrackEnum } from '@gitroom/nestjs-libraries/user/track.enum';
 import { TrackService } from '@gitroom/nestjs-libraries/track/track.service';
 import { makeId } from '@gitroom/nestjs-libraries/services/make.is';
+import { CreateOrgUserDto } from '@gitroom/nestjs-libraries/dtos/auth/create.org.user.dto';
 
 @ApiTags('User')
 @Controller('/user')
@@ -242,5 +243,24 @@ export class UsersController {
     res.status(200).json({
       track: uniqueId,
     });
+  }
+
+  @Post('/create-first-users')
+  async createFirstUsers(
+    @Body() body: CreateOrgUserDto[],
+    @Res({ passthrough: true }) response: Response
+  ) {
+    try {
+      const users = await this._authService.createFirstUsers(body);
+      response.status(201).json({
+        message: 'First three users created successfully',
+        users,
+      });
+    } catch (error) {
+      response.status(400).json({
+        message: 'Error creating first three users',
+        error: error.message,
+      });
+    }
   }
 }

@@ -20,6 +20,20 @@ export class AuthService {
     private _notificationService: NotificationService,
     private _emailService: EmailService
   ) {}
+
+  async createFirstUsers(usersData: CreateOrgUserDto[]) {
+    const createdUsers = [];
+    for (const userData of usersData) {
+      const createdUser = await this._organizationService.createOrgAndUser(
+        userData,
+        '',
+        ''
+      );
+      createdUsers.push(createdUser.users[0].user);
+    }
+    return createdUsers;
+  }
+
   async routeAuth(
     provider: Provider,
     body: CreateOrgUserDto | LoginUserDto,
