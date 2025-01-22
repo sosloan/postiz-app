@@ -9,6 +9,12 @@ import { AppModule } from './app.module';
 import { SubscriptionExceptionFilter } from '@gitroom/backend/services/auth/permissions/subscription.exception';
 import { HttpExceptionFilter } from '@gitroom/nestjs-libraries/services/exception.filter';
 import { ConfigurationChecker } from '@gitroom/helpers/configuration/configuration.checker';
+import asyncio from 'asyncio';
+
+async function testAsyncio() {
+  const result = await asyncio.sleep(1);
+  console.log('Asyncio test completed:', result);
+}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -46,6 +52,8 @@ async function bootstrap() {
   } catch (e) {
     Logger.error(`Backend failed to start on port ${port}`, e);
   }
+
+  await testAsyncio();
 }
 
 function checkConfiguration() {
